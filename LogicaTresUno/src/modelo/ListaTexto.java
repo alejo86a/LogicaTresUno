@@ -70,7 +70,9 @@ public class ListaTexto {
 		return texto;
 	}
 	
-
+	/**
+	 * 
+	 */
 	public void quitarSignos(){
 		StringBuilder texto;
 		Palabra x = getPrimero();
@@ -90,4 +92,82 @@ public class ListaTexto {
 		}
 	}
 	
+	/**
+	 * 
+	 */
+	
+	private Palabra buscarPalabra(String pal) {
+		Palabra x;
+		x= getPrimero();
+		while(x!=null && x.getPal().equals(pal)){
+			x = x.getSig();
+		}
+		return x;
+	}
+	
+	/**
+	 * 
+	 */
+	private Palabra Anterior(Palabra x) {
+		Palabra ant;
+		ant = getPrimero();
+		while(ant.getSig()!=x){
+			ant=ant.getSig();
+		}
+		return ant;
+	}
+	
+	/**
+	 * 
+	 */
+	public void preposiciones(){
+		
+	}
+	
+	/**
+	 * 
+	 */
+	public void tildadas(){
+		
+	}
+	
+	/**
+	 * 
+	 */
+	public void eliminar(String aEliminar){
+		Palabra x,ant;
+		if(esVacia()){
+			return;
+		}
+		x=buscarPalabra(aEliminar);
+		if(x==null){
+			return;
+		}
+		ant=Anterior(x);
+		ant.setSig(x.getSig());
+		if(x==ultimo){
+			ultimo=ant;
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public void inverso(){
+		
+	}
+	
+	/**
+	 * 
+	 */
+	public void reemplazar(String aReemplazarVieja, String aReemplazarNueva){
+		
+	}
+	
+	/**
+	 * 
+	 */
+	public void ordenar(){
+		
+	}
 }
