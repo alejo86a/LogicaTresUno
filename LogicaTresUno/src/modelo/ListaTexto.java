@@ -98,9 +98,9 @@ public class ListaTexto {
 	
 	private Palabra buscarPalabra(String pal) {
 		Palabra x;
-		x= getPrimero();
-		while(x!=null && x.getPal().equals(pal)){
-			x = x.getSig();
+		x=getPrimero();
+		while(x!=null && !(x.getPal().toString()).equals(pal.toString())){
+			x= x.getSig();
 		}
 		return x;
 	}
@@ -112,7 +112,7 @@ public class ListaTexto {
 		Palabra ant;
 		ant = getPrimero();
 		while(ant.getSig()!=x){
-			ant=ant.getSig();
+			ant = ant.getSig();
 		}
 		return ant;
 	}
@@ -139,15 +139,17 @@ public class ListaTexto {
 		if(esVacia()){
 			return;
 		}
-		x=buscarPalabra(aEliminar);
-		if(x==null){
-			return;
-		}
-		ant=Anterior(x);
-		ant.setSig(x.getSig());
-		if(x==ultimo){
-			ultimo=ant;
-		}
+		do{
+			x=buscarPalabra(aEliminar);
+			if(x==null){
+				return;
+			}
+			ant=Anterior(x);
+			ant.setSig(x.getSig());
+			if(x==ultimo){
+				ultimo=ant;
+			}
+		}while(x!=null);
 	}
 
 	/**
