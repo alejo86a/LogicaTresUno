@@ -49,6 +49,10 @@ public class ListaTexto {
 		return cabeza.getSig();
 	}
 	
+	public Palabra getUltimo(){
+		return ultimo;
+	}
+	
 	/**
 	 * @return 
 	 */
@@ -156,7 +160,18 @@ public class ListaTexto {
 	 * 
 	 */
 	public void inverso(){
-		
+		if(esVacia()){
+			return;
+		}
+		try{
+			Palabra x=getUltimo();
+			System.out.println(Anterior(x).getPal());
+			while(Anterior(x)!=cabeza){
+				insertarAlfinal(x.getPal());
+			}
+		}catch(Exception NullPointerException){
+			System.out.println("esta vacia");
+		}
 	}
 	
 	/**
