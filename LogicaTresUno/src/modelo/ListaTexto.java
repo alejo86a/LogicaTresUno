@@ -12,6 +12,8 @@ import java.util.StringTokenizer;
 public class ListaTexto {
 	
 	private Palabra cabeza, ultimo;
+	String[] prepo = {"a", "ante", "bajo", "con", "de", "desde", "durante", "en", "entre", "excepto",
+			"hacia", "hasta", "mediante", "para", "por", "salvo", "según", "sin", "sobre", "tras"};
 
 	/**
 	 * 
@@ -47,6 +49,10 @@ public class ListaTexto {
 	 */
 	public Palabra getPrimero(){
 		return cabeza.getSig();
+	}
+	
+	public void setPrimero(Palabra p){
+		cabeza.setSig(p);
 	}
 	
 	public Palabra getUltimo(){
@@ -113,20 +119,71 @@ public class ListaTexto {
 	 * 
 	 */
 	private Palabra Anterior(Palabra x) {
-		Palabra ant;
-		ant = getPrimero();
-		while(ant.getSig()!=x){
-			ant = ant.getSig();
+		Palabra p, ant;
+		p = getPrimero();
+		ant = null;
+		while(p != x){
+		ant = p;
+		p = p.getSig();
 		}
 		return ant;
-	}
+		}
 	
 	/**
 	 * 
 	 */
-	public void preposiciones(){
-		
-	}
+	public void preposiciones() {
+		Palabra p;
+		p = getPrimero().getSig();
+		String aux;
+		boolean bandera;
+
+		while (p != null) {
+			aux = p.getPal().toString();
+			bandera = false;
+
+			for (int i = 0; i < prepo.length; i++) {
+				if (aux.equals(prepo[i])) {
+					bandera = false;
+					break;
+				} else {
+					bandera = true;
+				}
+			}
+			if (bandera == true) {
+				p = p.getSig();
+				eliminar(aux);
+			} else {
+				p = p.getSig();
+			}
+		}
+		eliminarNodoRepetido();
+		p = getPrimero();
+		p.setPal(new StringBuilder("Preposiciones:"));
+		}
+
+		public void eliminarNodoRepetido(){
+		Palabra p, aux;
+		p = getPrimero().getSig();
+		while(p != null){
+		aux = p.getSig();
+		while(aux != null){
+		if(p.getPal().toString().equals(aux.getPal().toString())){
+		aux = aux.getSig();
+		eliminarN(Anterior(aux));
+		} else
+		aux = aux.getSig();
+		}
+		p = p.getSig();
+		}
+		}
+
+		public void eliminarN(Palabra p){
+		if(esVacia())
+		return;
+		Anterior(p).setSig(p.getSig());
+		p.setSig(null);
+		}
 	
 	/**
 	 * 
@@ -138,23 +195,27 @@ public class ListaTexto {
 	/**
 	 * 
 	 */
-	public void eliminar(String aEliminar){
-		Palabra x,ant;
-		if(esVacia()){
-			return;
+	public void eliminar(String aEliminar) {
+		Palabra x, ant;
+		if (esVacia()){
+		return;
 		}
-		do{
-			x=buscarPalabra(aEliminar);
-			if(x==null){
-				return;
-			}
-			ant=Anterior(x);
-			ant.setSig(x.getSig());
-			if(x==ultimo){
-				ultimo=ant;
-			}
-		}while(x!=null);
-	}
+		do {
+		x = buscarPalabra(aEliminar);
+		if (x == null) {
+		return;
+		}
+		if(x == getPrimero()){
+		setPrimero(x.getSig());
+		}else{
+		ant = Anterior(x);
+		ant.setSig(x.getSig());
+		if (x == ultimo) {
+		ultimo = ant;
+		}
+		}
+		} while (x != null);
+		}
 
 	/**
 	 * 

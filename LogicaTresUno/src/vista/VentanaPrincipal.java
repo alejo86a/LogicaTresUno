@@ -212,7 +212,7 @@ public class VentanaPrincipal extends JFrame {
 		miMaestroControlador.actualizarTextoOriginal(new StringBuilder(jEPIzq.getText().toString()+e.getKeyChar()));
 		if(rdbtnNinguno.isSelected()){
 			jEPDer.setText(miMaestroControlador.getTextoNuevo().toString());;
-		}else if(rdbtnNinguno.isSelected()){
+		}else if(rdbtnPreposiciones.isSelected()){
 			jEPDer.setText(miMaestroControlador.textoPreposiciones().toString());
 		}else if(rdbtnTildadas.isSelected()){
 			jEPDer.setText(miMaestroControlador.textoTildadas().toString());
