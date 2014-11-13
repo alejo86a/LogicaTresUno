@@ -178,7 +178,7 @@ public class VentanaPrincipal extends JFrame {
         btnEliminarPalabra = new JButton("Eliminar palabra");
         btnEliminarPalabra.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		String aEliminar = JOptionPane.showInputDialog(null, "�Cu�l eliminar?","Opcion Eliminar",JOptionPane.QUESTION_MESSAGE);
+        		String aEliminar = JOptionPane.showInputDialog(null, "Cual eliminar?","Opcion Eliminar",JOptionPane.QUESTION_MESSAGE);
         		if(!aEliminar.toString().equals("")){
         			jEPDer.setText(miMaestroControlador.textoEliminar(aEliminar).toString());
         		}
@@ -190,9 +190,11 @@ public class VentanaPrincipal extends JFrame {
         btnReemplazarPalabra = new JButton("Reemplazar palabra");
         btnReemplazarPalabra.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		String aReemplazarVieja = JOptionPane.showInputDialog(null, "�Cu�l reemplazar?","Opcion Reemplazar",JOptionPane.QUESTION_MESSAGE);
+        		String aReemplazarVieja = JOptionPane.showInputDialog(null, "Cual reemplazar?","Opcion Reemplazar",JOptionPane.QUESTION_MESSAGE);
         		String aReemplazarNueva = JOptionPane.showInputDialog(null, "Reemplazar con","Opcion Reemplazar",JOptionPane.QUESTION_MESSAGE);
-        		miMaestroControlador.textoReemplazar(aReemplazarVieja, aReemplazarNueva);
+        		if(!aReemplazarVieja.toString().equals("")){
+        			jEPDer.setText(miMaestroControlador.textoReemplazar(aReemplazarVieja, aReemplazarNueva).toString());
+        		}
         	}
         });
         btnReemplazarPalabra.setBounds(793, 31, 165, 23);

@@ -14,7 +14,7 @@ public class Palabra {
 	 * 'sig' un objeto palabra que es un campo que la siguiente palabra
 	 * 
 	 * Se utiliza encapsulamiento en esta clase, y se accede a sus atributos 
-	 * mediante getters y stters
+	 * mediante getters y setters
 	 */
 	private StringBuilder pal;
 	private Palabra sig;

@@ -3,6 +3,10 @@
  */
 package modelo;
 
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.StringTokenizer;
 
 /**
@@ -16,7 +20,8 @@ public class ListaTexto {
 			"hacia", "hasta", "mediante", "para", "por", "salvo", "según", "sin", "sobre", "tras"};
 
 	/**
-	 * 
+	 * Constructor de la clase, inicializa un objeto de tipo Palabra llamado cabeza y otro llamado
+	 * ultimo
 	 */
 	public ListaTexto() {
 		cabeza = new Palabra(new StringBuilder(0));
@@ -63,7 +68,7 @@ public class ListaTexto {
 	 * @return 
 	 */
 	public boolean esVacia(){
-		return cabeza==null;
+		return cabeza==ultimo;
 	}
 	
 	/**
@@ -163,19 +168,22 @@ public class ListaTexto {
 		}
 
 		public void eliminarNodoRepetido(){
-		Palabra p, aux;
-		p = getPrimero().getSig();
-		while(p != null){
-		aux = p.getSig();
-		while(aux != null){
-		if(p.getPal().toString().equals(aux.getPal().toString())){
-		aux = aux.getSig();
-		eliminarN(Anterior(aux));
-		} else
-		aux = aux.getSig();
-		}
-		p = p.getSig();
-		}
+			if(esVacia()){
+				return;
+			}
+			Palabra p, aux;
+			p = getPrimero().getSig();
+			while(p != null){
+				aux = p.getSig();
+				while(aux != null){
+					if(p.getPal().toString().equals(aux.getPal().toString())){
+						aux = aux.getSig();
+						eliminarN(Anterior(aux));
+					} else
+						aux = aux.getSig();
+				}
+				p = p.getSig();
+			}
 		}
 
 		public void eliminarN(Palabra p){
@@ -189,6 +197,7 @@ public class ListaTexto {
 	 * 
 	 */
 	public void tildadas(){
+		eliminarNodoRepetido();
 		
 	}
 	
@@ -198,24 +207,24 @@ public class ListaTexto {
 	public void eliminar(String aEliminar) {
 		Palabra x, ant;
 		if (esVacia()){
-		return;
+			return;
 		}
 		do {
-		x = buscarPalabra(aEliminar);
-		if (x == null) {
-		return;
-		}
-		if(x == getPrimero()){
-		setPrimero(x.getSig());
-		}else{
-		ant = Anterior(x);
-		ant.setSig(x.getSig());
-		if (x == ultimo) {
-		ultimo = ant;
-		}
-		}
+			x = buscarPalabra(aEliminar);
+			if (x == null) {
+				return;
+			}
+			if(x == getPrimero()){
+				setPrimero(x.getSig());
+			}else{
+				ant = Anterior(x);
+				ant.setSig(x.getSig());
+				if (x == ultimo) {
+					ultimo = ant;
+				}
+			}
 		} while (x != null);
-		}
+	}
 
 	/**
 	 * 
@@ -224,14 +233,17 @@ public class ListaTexto {
 		if(esVacia()){
 			return;
 		}
+		setPrimero(Anterior(getPrimero()));
+		Palabra x=getUltimo(),aux=null;
 		try{
-			Palabra x=getUltimo();
-			System.out.println(Anterior(x).getPal());
+			//System.out.println(Anterior(x).getPal());
 			while(Anterior(x)!=cabeza){
 				insertarAlfinal(x.getPal());
+				aux=x;
+				x=Anterior(x);
+				eliminarN(aux);
 			}
 		}catch(Exception NullPointerException){
-			System.out.println("esta vacia");
 		}
 	}
 	
@@ -239,13 +251,67 @@ public class ListaTexto {
 	 * 
 	 */
 	public void reemplazar(String aReemplazarVieja, String aReemplazarNueva){
-		
+		Palabra x;
+		if (esVacia()){
+			return;
+		}
+		do {
+			x = buscarPalabra(aReemplazarVieja);
+			if (x == null) {
+				return;
+			}
+			x.setPal(new StringBuilder(aReemplazarNueva));
+		} while (x != null);
 	}
 	
 	/**
 	 * 
 	 */
 	public void ordenar(){
+		if(esVacia()){
+			return;
+		}
+		Palabra i,j;
+		StringBuilder aux;
+		i=j=getPrimero();
+		while(i!=null){
+			while(j!=null && j.getSig()!=null){
+				try{
+					if(j.getPal().toString().compareToIgnoreCase(j.getSig().getSig().toString())>0){
+						aux=j.getPal();
+						j.setPal(j.getPal());
+						j.getSig().setPal(aux);
+					}
+				}catch ( Exception nullException){
+					
+				}
+				j = j.getSig();
+			}
+			i = i.getSig();
+		}
 		
+		/**
+		eliminarNodoRepetido();
+		Palabra i=getPrimero(),j=getPrimero().getSig().getSig(),k;
+		StringBuilder aux = null;
+		while(i!=null){
+			k=i;
+			while(j!=null){
+
+				System.out.println(":)");
+				if((i.getPal().toString()).compareToIgnoreCase(k.getPal().toString())<0){
+					k=j;
+				}
+
+				System.out.println(i.getPal().toString()+" "+k.getPal().toString());
+				j=j.getSig();
+			}
+			aux=i.getPal();
+			i.setPal(k.getPal());
+			k.setPal(aux);
+			i=i.getSig();
+		}
+		*/
+		eliminarNodoRepetido();
 	}
 }
