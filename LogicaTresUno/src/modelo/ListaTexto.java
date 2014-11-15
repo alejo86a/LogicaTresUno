@@ -229,23 +229,20 @@ public class ListaTexto {
 	/**
 	 * 
 	 */
-	public void inverso(){
-		if(esVacia()){
+	public void inverso() {
+		if (esVacia()) {
 			return;
 		}
-		setPrimero(Anterior(getPrimero()));
-		Palabra x=getUltimo(),aux=null;
-		try{
-			//System.out.println(Anterior(x).getPal());
-			while(Anterior(x)!=cabeza){
-				insertarAlfinal(x.getPal());
-				aux=x;
-				x=Anterior(x);
-				eliminarN(aux);
-			}
-		}catch(Exception NullPointerException){
+			Palabra x;
+			x = getUltimo();
+		while(x != getPrimero()){
+			x.setSig(Anterior(x));
+			x = Anterior(x);
 		}
-	}
+		x.setSig(null);
+		cabeza.setSig(ultimo);
+		ultimo = x;
+		}
 	
 	/**
 	 * 
@@ -267,51 +264,38 @@ public class ListaTexto {
 	/**
 	 * 
 	 */
-	public void ordenar(){
-		if(esVacia()){
+	public void ordenar() {
+		Palabra x, y;
+		x = getPrimero();
+		y = x.getSig();
+
+		if (esVacia() || (getPrimero() == getUltimo())) {
 			return;
 		}
-		Palabra i,j;
-		StringBuilder aux;
-		i=j=getPrimero();
-		while(i!=null){
-			while(j!=null && j.getSig()!=null){
-				try{
-					if(j.getPal().toString().compareToIgnoreCase(j.getSig().getSig().toString())>0){
-						aux=j.getPal();
-						j.setPal(j.getPal());
-						j.getSig().setPal(aux);
-					}
-				}catch ( Exception nullException){
-					
-				}
-				j = j.getSig();
-			}
-			i = i.getSig();
-		}
-		
-		/**
-		eliminarNodoRepetido();
-		Palabra i=getPrimero(),j=getPrimero().getSig().getSig(),k;
-		StringBuilder aux = null;
-		while(i!=null){
-			k=i;
-			while(j!=null){
 
-				System.out.println(":)");
-				if((i.getPal().toString()).compareToIgnoreCase(k.getPal().toString())<0){
-					k=j;
+		while (y != null) {
+			if ((x.getPal().toString()).compareTo(y.getPal().toString()) > 0) {
+				if (x == getPrimero()) {
+					x.setSig(y.getSig());
+					y.setSig(x);
+					cabeza.setSig(y);
+					if (x == getPrimero())
+						setPrimero(y);
+					x = getPrimero();
+					y = x.getSig();
+				} else {
+					Anterior(x).setSig(y);
+					x.setSig(y.getSig());
+					y.setSig(x);
+					if (y == getUltimo())
+						ultimo = x;
+					x = getPrimero();
+					y = x.getSig();
 				}
-
-				System.out.println(i.getPal().toString()+" "+k.getPal().toString());
-				j=j.getSig();
+			} else {
+				x = y;
+				y = x.getSig();
 			}
-			aux=i.getPal();
-			i.setPal(k.getPal());
-			k.setPal(aux);
-			i=i.getSig();
+			}
 		}
-		*/
-		eliminarNodoRepetido();
-	}
 }
