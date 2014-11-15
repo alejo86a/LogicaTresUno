@@ -196,9 +196,32 @@ public class ListaTexto {
 	/**
 	 * 
 	 */
-	public void tildadas(){
-		eliminarNodoRepetido();
-		
+	public void tildadas() {
+		boolean tieneTilde = false;
+		if (esVacia())
+			return;
+			Palabra x;
+			x = getPrimero();
+			while (x != null) {
+				String aux = x.getPal().toString();
+				System.out.println(aux);
+				for (int i = 0; i < aux.length(); i++) {
+					if ((aux.charAt(i) == 160)){
+						tieneTilde = true;
+						break;
+					}
+					else {
+						tieneTilde = false;
+					}
+				}
+				if (tieneTilde == false) {
+					x = x.getSig();
+					eliminar(aux);
+				}else{
+					x = x.getSig();
+				}
+			tieneTilde = false;
+		}
 	}
 	
 	/**
@@ -296,6 +319,7 @@ public class ListaTexto {
 				x = y;
 				y = x.getSig();
 			}
-			}
 		}
+		eliminarNodoRepetido();
+	}
 }
