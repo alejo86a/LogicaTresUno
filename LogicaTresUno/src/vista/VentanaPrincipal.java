@@ -27,6 +27,14 @@ import com.jgoodies.forms.factories.Borders.EmptyBorder;
 
 import controlador.MaestroControlador;
 
+/**
+ * 
+ * @author alejandro & alexis
+ * 
+ * clase ventanaPrincipal que es la interfaz grafica con la que el usuario final va a interactuar
+ *
+ */
+
 public class VentanaPrincipal extends JFrame {
 
 	private JPanel contentPane;
@@ -73,6 +81,7 @@ public class VentanaPrincipal extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 450, 300);
 		setResizable(false);
+		setTitle("Formato texto");
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GRAY);
 		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -4,7 +4,9 @@
 package modelo;
 
 /**
- * @author alejandro
+ * @author alejandro & alexis
+ * 
+ * Clase palabra que tiene como atributos un texto y una referencia a la siguiente palabra dentro de lista
  *
  */
 public class Palabra {

@@ -7,13 +7,20 @@ import modelo.ListaTexto;
 import vista.VentanaPrincipal;
 
 /**
- * @author alejandro
+ * @author alejandro & alexis
+ * 
+ *Clase principal del sistema que contiene el metodo main que crea un objeto controlador y 2 listas
+ *para representar en el modelo el texto en el que se escribe y en el que aparecen los resultados
  *
  */
 public class Principal {
 
 	/**
-	 * @param args
+	 * 
+	 * ventanaP objeto del tipo VentanaPrincipal
+	 * textoOriginal objeto del tipo ListTexto
+	 * textoNuevo objeto del tipo ListTexto
+	 * 
 	 */
 	private VentanaPrincipal ventanaP;
 	private ListaTexto textoOriginal;

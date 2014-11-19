@@ -1,6 +1,3 @@
-/**
- * 
- */
 package modelo;
 
 import java.awt.List;
@@ -10,7 +7,10 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 
 /**
- * @author alejandro
+ * @author alejandro & alexis
+ * 
+ * clase lista que se encarga de convetir un texto en una lista en la cual cada palabra se guarda en un
+ * objeto Palabra que tiene una referencia a la siguiente palabra dentro del texto y que no guarda textos
  *
  */
 public class ListaTexto {
@@ -21,7 +21,7 @@ public class ListaTexto {
 
 	/**
 	 * Constructor de la clase, inicializa un objeto de tipo Palabra llamado cabeza y otro llamado
-	 * ultimo
+	 * ultimo, los iguala lo que denota que la lista esta vacia.
 	 */
 	public ListaTexto() {
 		cabeza = new Palabra(new StringBuilder(0));
@@ -30,6 +30,9 @@ public class ListaTexto {
 	
 	/**
 	 * @param texto
+	 * 
+	 * metodo que se encarga de convetir un texto en la lista cojiendo cada palabra de texto mediante 
+	 * el uso de laclase StringTokenizer y que identifica las palabras por que estan separadas por un espacio.
 	 */
 	public void actualizarTexto(StringBuilder texto) {
 		StringTokenizer textoTokenizer = new StringTokenizer(texto.toString(), " ");
@@ -40,6 +43,13 @@ public class ListaTexto {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param pal
+	 * 
+	 * inserta una nueva palabra en la lista texto recibiendo un stringBuilder que es loq eu va a contener la palabra
+	 * en su campo texto
+	 */
 	private void insertarAlfinal(StringBuilder pal) {
 		// TODO Auto-generated method stub
 		Palabra x = getPrimero();
@@ -49,30 +59,48 @@ public class ListaTexto {
 	}
 
 	/**
-	 * @return
+	 * @return Palabra
 	 * 
+	 * retorna la primera palabra del texto
 	 */
 	public Palabra getPrimero(){
 		return cabeza.getSig();
 	}
 	
+	/**
+	 * 
+	 * @param p
+	 * 
+	 * cambia la referencia a la primera palabra por la que recibe en el parametro
+	 */
 	public void setPrimero(Palabra p){
 		cabeza.setSig(p);
 	}
 	
+	/**
+	 * 
+	 * @return Palabra
+	 * 
+	 * retorna la ultima palabra del texto
+	 */
 	public Palabra getUltimo(){
 		return ultimo;
 	}
 	
 	/**
-	 * @return 
+	 * @return booleano
+	 * 
+	 * retorna si la lista es vacia o no
 	 */
 	public boolean esVacia(){
 		return cabeza==ultimo;
 	}
 	
 	/**
-	 * @return
+	 * @return texto
+	 * 
+	 * Asi como la se convierte un texto en lista la lista en este metodo es nuevamente retornada como un texto completo en
+	 * un stringbuilder
 	 */
 	public StringBuilder getTexto(){
 		StringBuilder texto = new StringBuilder();
@@ -97,7 +125,12 @@ public class ListaTexto {
 				if(!(
 						(x.getPal().charAt(i)>=65 && x.getPal().charAt(i)<=89) ||
 						(x.getPal().charAt(i)>=97 && x.getPal().charAt(i)<=122) ||
-						(x.getPal().charAt(i)>=160 && x.getPal().charAt(i)<=165))){
+						
+						(x.getPal().charAt(i)==193 || x.getPal().charAt(i)==201 ||
+						x.getPal().charAt(i)==205 || x.getPal().charAt(i)==211 ||
+						x.getPal().charAt(i)==218 || x.getPal().charAt(i)==225 ||
+						x.getPal().charAt(i)==233 || x.getPal().charAt(i)==237 || 
+						x.getPal().charAt(i)==243 || x.getPal().charAt(i)==250))){
 					x.setPal(texto.replace(i, i+1, ""));
 					i--;
 				}
@@ -165,63 +198,70 @@ public class ListaTexto {
 		eliminarNodoRepetido();
 		p = getPrimero();
 		p.setPal(new StringBuilder("Preposiciones:"));
-		}
+	}
 
-		public void eliminarNodoRepetido(){
-			if(esVacia()){
-				return;
-			}
-			Palabra p, aux;
-			p = getPrimero().getSig();
-			while(p != null){
-				aux = p.getSig();
-				while(aux != null){
-					if(p.getPal().toString().equals(aux.getPal().toString())){
-						aux = aux.getSig();
-						eliminarN(Anterior(aux));
-					} else
-						aux = aux.getSig();
-				}
-				p = p.getSig();
-			}
+	public void eliminarNodoRepetido(){
+		if(esVacia()){
+			return;
 		}
+		Palabra p, aux;
+		p = getPrimero().getSig();
+		while(p != null){
+			aux = p.getSig();
+			while(aux != null){
+				if(p.getPal().toString().equals(aux.getPal().toString())){
+					aux = aux.getSig();
+					eliminarN(Anterior(aux));
+				} else
+					aux = aux.getSig();
+			}
+			p = p.getSig();
+		}
+	}
 
-		public void eliminarN(Palabra p){
-		if(esVacia())
-		return;
+	public void eliminarN(Palabra p){
+		if(esVacia()){
+			return;
+		}
 		Anterior(p).setSig(p.getSig());
 		p.setSig(null);
-		}
+	}
 	
 	/**
 	 * 
 	 */
 	public void tildadas() {
-		boolean tieneTilde = false;
-		if (esVacia())
-			return;
-			Palabra x;
-			x = getPrimero();
-			while (x != null) {
-				String aux = x.getPal().toString();
-				System.out.println(aux);
-				for (int i = 0; i < aux.length(); i++) {
-					if ((aux.charAt(i) == 160)){
-						tieneTilde = true;
-						break;
-					}
-					else {
-						tieneTilde = false;
-					}
+		Palabra p;
+		p = getPrimero().getSig();
+		String aux;
+		boolean bandera;
+
+		while (p != null) {
+			aux = p.getPal().toString();
+			bandera = false;
+
+			for (int i = 0; i < aux.length(); i++) {
+				if (!((aux.charAt(i)==193 || aux.charAt(i)==201 ||
+						aux.charAt(i)==205 || aux.charAt(i)==211 ||
+						aux.charAt(i)==218 || aux.charAt(i)==225 ||
+						aux.charAt(i)==233 || aux.charAt(i)==237 || 
+						aux.charAt(i)==243 || aux.charAt(i)==250))) {
+					bandera = false;
+					break;
+				} else {
+					bandera = true;
 				}
-				if (tieneTilde == false) {
-					x = x.getSig();
-					eliminar(aux);
-				}else{
-					x = x.getSig();
-				}
-			tieneTilde = false;
+			}
+			if (bandera == true) {
+				p = p.getSig();
+				eliminar(aux);
+			} else {
+				p = p.getSig();
+			}
 		}
+		eliminarNodoRepetido();
+		p = getPrimero();
+		p.setPal(new StringBuilder("tildadas:"));
 	}
 	
 	/**
@@ -256,8 +296,8 @@ public class ListaTexto {
 		if (esVacia()) {
 			return;
 		}
-			Palabra x;
-			x = getUltimo();
+		Palabra x;
+		x = getUltimo();
 		while(x != getPrimero()){
 			x.setSig(Anterior(x));
 			x = Anterior(x);

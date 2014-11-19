@@ -7,7 +7,10 @@ import vista.VentanaPrincipal;
 import modelo.*;
 
 /**
- * @author alejandro
+ * @author alejandro & alexis
+ * 
+ * Clase controlador que se encarga de hacer la conexio entre el modelo y la vista mediante
+ * una unica instancia del textoOriginal y textoNuevo y metodos accesores a la clase listaTexto
  *
  */
 public class MaestroControlador {
@@ -21,6 +24,8 @@ public class MaestroControlador {
 	 * 
 	 * @param textoOriginal
 	 * @param textoNuevo
+	 * 
+	 * Contructor de la clase recibe las instancias UNICAS  de dos listaTexto
 	 */
 	public MaestroControlador(ListaTexto textoOriginal, ListaTexto textoNuevo){
 		this.miTextoOriginal = textoOriginal;
@@ -30,6 +35,7 @@ public class MaestroControlador {
 	/**
 	 * 
 	 * @param texto
+	 * 
 	 */
 	public void actualizarTextoOriginal(StringBuilder texto){
 		miTextoOriginal.actualizarTexto(texto);
@@ -38,7 +44,7 @@ public class MaestroControlador {
 	
 	/**
 	 * 
-	 * @return
+	 * @return texto
 	 */
 	public StringBuilder getTextoNuevo(){
 		miTextoNuevo.quitarSignos();
@@ -47,7 +53,7 @@ public class MaestroControlador {
 	
 	/**
 	 * 
-	 * @return
+	 * @return texto
 	 */
 	public StringBuilder textoPreposiciones(){
 		miTextoNuevo.quitarSignos();
@@ -57,7 +63,7 @@ public class MaestroControlador {
 	
 	/**
 	 * 
-	 * @return
+	 * @return texto
 	 */
 	public StringBuilder textoTildadas(){
 		miTextoNuevo.quitarSignos();
@@ -69,7 +75,7 @@ public class MaestroControlador {
 	 * 
 	 * 
 	 * @param aEliminar
-	 * @return
+	 * @return texto
 	 */
 	public StringBuilder textoEliminar(String aEliminar){
 		miTextoNuevo.quitarSignos();
@@ -79,7 +85,7 @@ public class MaestroControlador {
 	
 	/**
 	 * 
-	 * @return
+	 * @return texto
 	 */
 	public StringBuilder textoInverso(){
 		miTextoNuevo.quitarSignos();
@@ -91,7 +97,7 @@ public class MaestroControlador {
 	 * 
 	 * @param aReemplazarVieja
 	 * @param aReemplazarNueva
-	 * @return
+	 * @return texto 
 	 */
 	public StringBuilder textoReemplazar(String aReemplazarVieja, String aReemplazarNueva){
 		miTextoNuevo.quitarSignos();
@@ -101,7 +107,7 @@ public class MaestroControlador {
 	
 	/**
 	 * 
-	 * @return
+	 * @return texto
 	 */
 	public StringBuilder textoOrdenar(){
 		miTextoNuevo.quitarSignos();
