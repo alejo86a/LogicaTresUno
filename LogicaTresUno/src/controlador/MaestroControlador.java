@@ -9,7 +9,7 @@ import modelo.*;
 /**
  * @author alejandro & alexis
  * 
- * Clase controlador que se encarga de hacer la conexio entre el modelo y la vista mediante
+ * Clase controlador que se encarga de hacer la conexion entre el modelo y la vista mediante
  * una unica instancia del textoOriginal y textoNuevo y metodos accesores a la clase listaTexto
  *
  */
